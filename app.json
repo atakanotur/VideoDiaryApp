@@ -3,7 +3,6 @@
     "name": "VideoDiaryApp",
     "slug": "VideoDiaryApp",
     "version": "1.0.0",
-
     "scheme": "VideoDiaryApp",
     "platforms": ["ios", "android"],
     "web": {
@@ -14,15 +13,11 @@
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
-    "userInterfaceStyle": "light",
-
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -30,7 +25,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.atakanotur.VideoDiaryApp"
     },
     "android": {
       "adaptiveIcon": {
