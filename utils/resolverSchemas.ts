@@ -1,64 +1,22 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-//Authentication Resolvers
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-})
+const metadataSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().optional(),
+});
 
-type LoginFormFields = z.infer<typeof loginSchema>
+type MetadataFields = z.infer<typeof metadataSchema>;
 
-const useLoginForm = () => {
-  return useForm<LoginFormFields>({
+const useMetadataForm = () => {
+  return useForm<MetadataFields>({
     defaultValues: {
-      email: '',
-      password: '',
+      name: '',
+      description: '',
     },
-    resolver: zodResolver(loginSchema),
-  })
-}
+    resolver: zodResolver(metadataSchema),
+  });
+};
 
-const registerSchema = z
-  .object({
-    email: z.string().email(),
-    username: z.string().min(3),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
-
-type RegisterFormFields = z.infer<typeof registerSchema>
-
-const useRegisterForm = () => {
-  return useForm<RegisterFormFields>({
-    defaultValues: {
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-    },
-    resolver: zodResolver(registerSchema),
-  })
-}
-
-const forgotPasswordSchema = z.object({
-  email: z.string().email(),
-})
-
-type ForgotPasswordFields = z.infer<typeof forgotPasswordSchema>
-
-const useForgotPasswordForm = () => {
-  return useForm<ForgotPasswordFields>({
-    defaultValues: {
-      email: '',
-    },
-    resolver: zodResolver(forgotPasswordSchema),
-  })
-}
-
-export { useForgotPasswordForm, useLoginForm, useRegisterForm }
+export { useMetadataForm, MetadataFields };

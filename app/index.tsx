@@ -1,7 +1,3 @@
-import { Redirect } from "expo-router";
+import Videos from "@/screens/videos";
 
-const App = () => {
-    return <Redirect href={"/auth/signIn"} />;
-};
-
-export default App;
+export default Videos;

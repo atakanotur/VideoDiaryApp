@@ -4,5 +4,6 @@ import { Text } from './Text';
 import { View } from './View';
 import { TextInput } from './TextInput';
 import { Icon } from './Icon';
+import { Banner } from './Banner';
 
-export { Button, Container, Text, View, TextInput, Icon };
+export { Banner, Button, Container, Text, View, TextInput, Icon };

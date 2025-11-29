@@ -1,18 +1,23 @@
 import '../global.css';
 
 import { Stack } from 'expo-router';
-import { useTheme } from '@/hooks/useTheme';
 import { StatusBar } from '@/components';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function Layout() {
-  const { theme } = useTheme();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5,
+        retry: 2
+      },
+    },
+  })
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <StatusBar />
-      <Stack initialRouteName='auth' screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='auth' options={{ headerShown: false }} />
-        <Stack.Screen name='main' options={{ headerShown: false }} />
-      </Stack>
-    </>
+      <Stack screenOptions={{ headerShown: false }} />
+    </QueryClientProvider>
   )
 }
