@@ -3,14 +3,10 @@ import { Container, Button, VideoPlayer, TextInput } from "@/components";
 import { usePickVideo } from "@/hooks/usePickVideo";
 import { useTrimVideo } from "@/hooks/useTrimVideo";
 import { useRouter } from "expo-router";
-import { useVideoStore } from "@/store/useVideoStore";
-import { set } from "react-hook-form";
 import { useCreateVideo } from "@/hooks/queries/videoQueries";
 
 const CropVideo = () => {
     const router = useRouter();
-
-    const addVideo = useVideoStore((state) => state.addVideo);
 
     const { pickVideo, videoUri } = usePickVideo();
 
@@ -34,7 +30,6 @@ const CropVideo = () => {
     }
 
     const save = async () => {
-        addVideo({ uri, duration, description });
         await createVideoMutateAsync({ uri, description, duration, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
         router.back();
     }

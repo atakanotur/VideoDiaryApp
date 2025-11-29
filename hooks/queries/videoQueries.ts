@@ -20,7 +20,7 @@ export const useCreateVideo = () => {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: Omit<Video, 'id'>) => VideoRepository.create(data),
+    mutationFn: (data: Omit<InsertVideo, 'id'>) => VideoRepository.create(data),
 
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.video.list() });

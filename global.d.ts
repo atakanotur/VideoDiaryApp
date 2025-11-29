@@ -1,7 +1,8 @@
-import { Video } from './types/video';
-
+import type * as Types from './types';
 declare global {
-  type Video = Video;
+  type Video = Types.Video;
+  type InsertVideo = Types.InsertVideo;
+  type UpdateVideo = Types.UpdateVideo;
 }
 
 export {};
