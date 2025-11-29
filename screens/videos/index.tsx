@@ -1,27 +1,34 @@
-import { Container, Banner, VideoPlayer, Button } from "@/components";
-import { usePickVideo } from "@/hooks/usePickVideo";
-import { useTrimVideo } from "@/hooks/useTrimVideo";
+import { Container, Banner, Text } from "@/components";
+import { useVideoList } from "@/hooks/queries/videoQueries";
 import { useRouter } from "expo-router";
+import { FlatList, Pressable } from "react-native";
 
 const Videos = () => {
     const router = useRouter();
 
-    const { pickVideo, videoUri } = usePickVideo();
-    const { mutateAsync: trimMutateAsync, data } = useTrimVideo();
+    const { data } = useVideoList();
 
-    const crop = async () => {
-        await trimMutateAsync({
-            uri: videoUri,
-            start: 1,
-            end: 5
-        })
+    const videoListRenderItem = ({ item, index }: { item: Video, index: number }) => {
+        return (
+            <Pressable className="flex-row justify-between ">
+                <Text>
+                    {item.description}
+                </Text>
+                <Text adjustsFontSizeToFit>
+                    {item.duration} seconds
+                </Text>
+            </Pressable>
+        )
     }
 
     return (
         <Container className="bg-white dark:bg-gray-900">
-            <Banner screenName="Videos" leftIconName="cloud-sharp" leftIconPress={() => router.push(`/editVideo/${15}`)} rightIconName="add" rightIconPress={pickVideo} />
-            <VideoPlayer videoUri={data ? data : ""} />
-            <Button title="Crop" onPress={crop} />
+            <Banner screenName="Videos" rightIconName="add" rightIconPress={() => router.push(`/cropVideo`)} />
+            <FlatList
+                data={data}
+                extraData={data}
+                renderItem={videoListRenderItem}
+            />
         </Container>
     );
 };

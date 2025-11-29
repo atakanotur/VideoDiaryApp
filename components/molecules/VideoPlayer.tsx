@@ -14,8 +14,8 @@ export const VideoPlayer = forwardRef<VideoView, VideoProps>(({ videoUri }: Vide
     const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
 
     return (
-        <VideoView ref={ref} player={player} style={{ width: '100%', height: 300 }} />
+        <VideoView ref={ref} player={player} style={{ width: '100%', height: 300 }} fullscreenOptions={{ enable: false }} />
     )
 })
 
-VideoPlayer.displayName = 'Video'
+VideoPlayer.displayName = 'VideoPlayer'

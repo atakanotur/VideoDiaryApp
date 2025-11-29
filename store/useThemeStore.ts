@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 
-interface ThemeState {
+type ThemeState = {
   themeMode: ThemeMode;
   setTheme: (mode: ThemeMode) => void;
   toggleTheme: () => void;
-}
+};
 
 export const useThemeStore = create<ThemeState>()(
   persist(
