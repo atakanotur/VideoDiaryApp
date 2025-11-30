@@ -7,6 +7,5 @@ import { Icon } from './Icon';
 import { Banner } from './Banner';
 import { Slider } from './Slider';
 import { StatusBar } from "./StatusBar";
-import { VideoPlayer } from "./VideoPlayer";
 
-export { Banner, Button, Container, Text, View, TextInput, Icon, Slider, StatusBar, VideoPlayer };
+export { Banner, Button, Container, Text, View, TextInput, Icon, Slider, StatusBar };

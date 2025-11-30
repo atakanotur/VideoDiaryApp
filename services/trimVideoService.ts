@@ -11,7 +11,6 @@ export const trimVideoService = async ({ uri, start, end }: TrimVideoPayload): P
 
   try {
     const result = await trimVideo({ uri, start, end });
-    console.log('Trimmed video saved to:', result.uri);
     return result.uri;
   } catch (error: any) {
     console.error('Error trimming video:', error.message);

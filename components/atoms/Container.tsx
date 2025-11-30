@@ -9,5 +9,5 @@ export const Container = ({ children, className }: { children?: React.ReactNode 
 };
 
 const styles = {
-  container: 'flex-1 p-2 pv-0 bg-white dark:bg-gray-300',
+  container: 'flex-1 p-2 pv-0 bg-white dark:bg-gray-900',
 };

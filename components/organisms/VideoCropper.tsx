@@ -22,7 +22,7 @@ export const VideoCropper = ({ uri, onChangeRange, range }: VideoCropperProps) =
     });
 
     const [start, setStart] = useState<number>(0);
-    const [duration, setDuration] = useState<number>(0);
+    const [duration, setDuration] = useState<number>(range);
 
     const onChangeSliderValue = (value: number) => {
         setStart(value);

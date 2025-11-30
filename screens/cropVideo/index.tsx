@@ -7,6 +7,7 @@ import { useCreateVideo } from "@/hooks/queries/videoQueries";
 import { useMetadataForm } from "@/utils/resolverSchemas";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Alert, Dimensions } from "react-native";
+import { saveVideoToAppStorage } from "@/utils/normalizeVideoFile";
 
 const { width } = Dimensions.get("window");
 
@@ -20,8 +21,9 @@ const CropVideo = () => {
     const translateX = useSharedValue(0);
     const animationDuration = 200;
 
+    const range = 5;
     const [start, setStart] = useState<number>(0);
-    const [end, setEnd] = useState<number>(0);
+    const [end, setEnd] = useState<number>(range);
 
     const { mutateAsync: trimMutateAsync, isPending: trimPending } = useTrimVideo();
     const { mutateAsync: createVideoMutateAsync, isPending: createPending } = useCreateVideo();
@@ -44,23 +46,37 @@ const CropVideo = () => {
     }
 
     const crop = async ({ name, description }: { name: string; description?: string }) => {
-        const result = await trimMutateAsync({
-            uri: videoUri,
-            start,
-            end
-        })
+        try {
+            const resultUri = await trimMutateAsync({
+                uri: videoUri,
+                start,
+                end,
+            });
 
-        const duration = end - start;
+            const duration = end - start;
 
-        await createVideoMutateAsync({ uri: result, name, description, duration, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+            const uri = saveVideoToAppStorage(resultUri);
 
-        router.back();
-    }
+            await createVideoMutateAsync({
+                uri,
+                name,
+                description,
+                duration,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            });
+
+            router.back();
+        } catch (error) {
+            console.error("Crop error:", error);
+            alert("Failed to crop video. Please try again.");
+        }
+    };
 
     const firstStep = () => (
         <Animated.View className={"w-full"} style={[firstStepStyle, { position: "absolute" }]}>
             <View style={{ width, gap: 10, padding: 10 }}>
-                <VideoCropper uri={videoUri} range={5} onChangeRange={(start, end) => { setStart(start); setEnd(end); }} />
+                <VideoCropper uri={videoUri} range={range} onChangeRange={(start, end) => { setStart(start); setEnd(end); }} />
                 <Button title={videoUri ? "Pick another video" : "Pick a video"} onPress={pickVideo} />
                 <Button title={"Next"} onPress={next} />
             </View>
@@ -73,7 +89,7 @@ const CropVideo = () => {
                 <Icon name="chevron-back-circle-outline" size={30} onPress={goBack} />
                 <View className="gap-5">
                     <ControlledInput control={control} name="name" placeholder="Name" />
-                    <ControlledInput control={control} name="description" placeholder="Description" />
+                    <ControlledInput control={control} name="description" placeholder="Description" multiline={true} />
                     <Button title="Crop" onPress={handleSubmit(crop)} />
                 </View>
             </View>

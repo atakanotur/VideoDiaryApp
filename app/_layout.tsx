@@ -27,7 +27,7 @@ export default function Layout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="cropVideo" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="videoDetails/[id]" />
+        <Stack.Screen name="videoDetails" />
       </Stack>
     </QueryClientProvider>
   )

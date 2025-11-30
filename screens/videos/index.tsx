@@ -1,27 +1,47 @@
-import { Container, Banner, Text, Button } from "@/components";
+import { Container, Banner, Text, VideoThumbnail, View } from "@/components";
 import { useVideoList } from "@/hooks/queries/videoQueries";
 import { useRouter } from "expo-router";
-import { FlatList, Pressable, Image } from "react-native";
-import * as VideoThumbnails from "expo-video-thumbnails";
-import { useState } from "react";
+import { FlatList, Pressable } from "react-native";
+import { useVideoStore } from "@/store/useVideoStore";
 
 const Videos = () => {
     const router = useRouter();
 
     const { data } = useVideoList();
 
-    const [thumbnail, setThumbnail] = useState("");
+    const setSelectedVideo = useVideoStore((state) => state.setSelectedVideo);
+
+    const goDetails = (video: Video) => {
+        setSelectedVideo(video);
+        router.push("/videoDetails")
+    }
 
     const videoListRenderItem = ({ item, index }: { item: Video, index: number }) => {
         return (
-            <Pressable className="flex-row justify-between ">
-                <Image source={{ uri: thumbnail }} />
-                <Text>
-                    {item.description}
+            <Pressable onPress={() => goDetails(item)}>
+                <Text
+                    className="text-center"
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                >
+                    {item.name}
                 </Text>
-                <Text adjustsFontSizeToFit>
-                    {item.duration} seconds
-                </Text>
+                <View className="flex-row items-center px-2 py-2 gap-5">
+                    <VideoThumbnail uri={item.uri} />
+
+                    <View className="flex-1 mx-2">
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                        >
+                            {item.description}
+                        </Text>
+                    </View>
+
+                    <Text className="text-gray-300 ml-2">
+                        {item.duration} seconds
+                    </Text>
+                </View>
             </Pressable>
         )
     }
@@ -33,6 +53,7 @@ const Videos = () => {
                 data={data}
                 extraData={data}
                 renderItem={videoListRenderItem}
+                contentContainerClassName="gap-5"
             />
         </Container>
     );

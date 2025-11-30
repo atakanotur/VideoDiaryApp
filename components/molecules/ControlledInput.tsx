@@ -66,7 +66,7 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
                         onBlur={onBlur}
                         defaultValue={defaultValue}
                         keyboardType={keyboardType}
-                        multiline
+                        multiline={multiline}
                         {...otherProps}
                     />
 
