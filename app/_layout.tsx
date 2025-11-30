@@ -16,7 +16,9 @@ export default function Layout() {
     defaultOptions: {
       queries: {
         staleTime: 1000 * 60 * 5,
-        retry: 2
+        retry: 2,
+        refetchOnWindowFocus: true,
+        refetchOnMount: true,
       },
     },
   })

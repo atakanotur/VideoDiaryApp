@@ -5,7 +5,7 @@ import { useThemeStore } from '../store/useThemeStore';
 
 export const useTheme = () => {
   const deviceColorScheme = useDeviceColorScheme();
-  const { colorScheme: nativeWindScheme, setColorScheme } = useNativeWindColorScheme();
+  const { setColorScheme } = useNativeWindColorScheme();
   const { themeMode, setTheme, toggleTheme } = useThemeStore();
 
   const theme = themeMode === 'system' ? deviceColorScheme || 'light' : themeMode;

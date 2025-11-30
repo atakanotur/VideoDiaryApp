@@ -1,17 +1,15 @@
 import { Banner, Container, Text } from "@/components";
 import { useVideoStore } from "@/store/useVideoStore";
-import { Directory, Paths, File } from "expo-file-system";
 import { useRouter } from "expo-router";
-import { VideoView, useVideoPlayer } from "expo-video";
+import { VideoView, useVideoPlayer } from "expo-video"
+import { getVideoFileUri } from "@/utils/getVideoFileUri";
 
 const VideoDetails = () => {
     const router = useRouter();
 
     const video = useVideoStore((state) => state.selectedVideo);
 
-    const videosDir = new Directory(Paths.document, 'videos');
-    const videoFile = new File(videosDir, video.uri);
-    const fullUri = videoFile.uri; // Tam path
+    const fullUri = getVideoFileUri(video.uri);
 
     const player = useVideoPlayer(fullUri, (player) => {
         player.addListener("sourceChange", () => {

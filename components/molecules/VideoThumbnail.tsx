@@ -1,7 +1,7 @@
 import { Image } from "react-native";
 import * as VideoThumbnails from "expo-video-thumbnails";
 import { useEffect, useState } from "react";
-import { Directory, Paths, File } from "expo-file-system";
+import { getVideoFileUri } from "@/utils/getVideoFileUri";
 
 type VideoThumbnailProps = {
     uri: string;
@@ -10,9 +10,7 @@ type VideoThumbnailProps = {
 export const VideoThumbnail = ({ uri }: VideoThumbnailProps) => {
     const [thumbnail, setThumbnail] = useState('');
 
-    const videosDir = new Directory(Paths.document, 'videos');
-    const videoFile = new File(videosDir, uri);
-    const fullUri = videoFile.uri; // Tam path
+    const fullUri = getVideoFileUri(uri);
 
     useEffect(() => {
         const createThumbnail = async () => {
