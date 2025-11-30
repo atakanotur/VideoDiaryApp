@@ -48,7 +48,7 @@ const Videos = () => {
 
     return (
         <Container className="bg-white dark:bg-gray-900">
-            <Banner screenName="Videos" rightIconName="add" rightIconPress={() => router.push(`/cropVideo`)} />
+            <Banner screenName="Videos" leftIconName="add" leftIconPress={() => router.push(`/cropVideo`)} />
             <FlatList
                 data={data}
                 extraData={data}

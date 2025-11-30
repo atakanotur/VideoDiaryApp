@@ -148,10 +148,6 @@ Uygulama aşağıdaki izinleri gerektirir:
 - Video kırpma işlemi arka planda gerçekleşir
 - Dark mode sistem ayarlarına göre otomatik değişir
 
-## 📄 Lisans
-
-Bu proje özel bir projedir.
-
 ## 👤 Geliştirici
 
 Atakan Otur

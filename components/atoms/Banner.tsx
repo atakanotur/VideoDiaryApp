@@ -3,22 +3,22 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Icon } from "./Icon";
 import { Text } from "./Text";
 import { View } from "./View";
+import { Switch } from "react-native";
+import { useTheme } from "@/hooks/useTheme";
 
 type BannerProps = {
     screenName: string;
     leftIconName?: keyof typeof Ionicons.glyphMap;
     leftIconPress?: () => void;
-    rightIconName?: keyof typeof Ionicons.glyphMap;
-    rightIconPress?: () => void;
 };
 
 export const Banner = ({
     leftIconName,
     leftIconPress,
     screenName,
-    rightIconName,
-    rightIconPress
 }: BannerProps) => {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <View className={`${styles.container}`}>
             {leftIconName && leftIconPress ? (
@@ -35,15 +35,10 @@ export const Banner = ({
                 {screenName}
             </Text>
 
-            {rightIconName && rightIconPress ? (
-                <Icon
-                    name={rightIconName}
-                    size={25}
-                    onPress={rightIconPress}
-                />
-            ) : (
-                <View />
-            )}
+            <Switch
+                value={theme === "dark"}
+                onValueChange={toggleTheme}
+            />
         </View>
     );
 };
