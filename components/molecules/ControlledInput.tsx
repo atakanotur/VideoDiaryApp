@@ -12,6 +12,7 @@ type ControlledInputProps<TFieldValues extends FieldValues> = {
     containerClassName?: string;
     defaultValue?: string;
     keyboardType?: any;
+    multiline?: boolean;
 };
 
 export const ControlledInput = <TFieldValues extends FieldValues>({
@@ -23,6 +24,7 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
     containerClassName,
     defaultValue,
     keyboardType,
+    multiline,
     ...otherProps
 }: ControlledInputProps<TFieldValues>) => {
 
@@ -64,6 +66,7 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
                         onBlur={onBlur}
                         defaultValue={defaultValue}
                         keyboardType={keyboardType}
+                        multiline
                         {...otherProps}
                     />
 

@@ -7,7 +7,7 @@ export const usePickVideo = () => {
   const [videoDuration, setVideoDuration] = useState<number>(0);
   const pickVideo = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    console.log('permissionResult : ', permissionResult);
+    
     if (!permissionResult.granted) {
       Alert.alert('Permission required', 'Permission to access the media library is required.');
       return;

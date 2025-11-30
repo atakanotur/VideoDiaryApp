@@ -1,5 +1,4 @@
-import { StatusBar } from "./StatusBar";
 import { ControlledInput } from "./ControlledInput";
-import { VideoPlayer } from "./VideoPlayer";
+import { Loading } from "./Loading";
 
-export { StatusBar, ControlledInput, VideoPlayer };
+export { ControlledInput, Loading };

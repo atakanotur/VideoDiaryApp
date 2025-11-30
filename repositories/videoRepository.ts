@@ -13,14 +13,21 @@ export const VideoRepository = {
   },
 
   async create(data: Omit<Video, 'id'>): Promise<number> {
-    const { uri, description, duration, createdAt, updatedAt } = data;
+    const { uri, name, description, duration, createdAt, updatedAt } = data;
 
     const stmt = db.prepareSync(`
-      INSERT INTO videos (uri, description, duration, createdAt, updatedAt)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO videos (uri, name, description, duration, createdAt, updatedAt)
+      VALUES (?, ?, ?, ?, ?, ?)
     `);
 
-    const result = stmt.executeSync([uri, description ?? '', duration, createdAt, updatedAt]);
+    const result = stmt.executeSync([
+      uri,
+      name,
+      description ?? '',
+      duration,
+      createdAt ?? '',
+      updatedAt ?? '',
+    ]);
 
     return result.lastInsertRowId!;
   },

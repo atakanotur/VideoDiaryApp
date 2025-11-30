@@ -28,7 +28,6 @@ export default function Layout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="cropVideo" options={{ presentation: 'modal' }} />
         <Stack.Screen name="videoDetails/[id]" />
-        <Stack.Screen name="editVideo/[id]" />
       </Stack>
     </QueryClientProvider>
   )

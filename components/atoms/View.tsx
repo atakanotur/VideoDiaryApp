@@ -1,7 +1,5 @@
 import { forwardRef } from "react";
-import { View as RNView, ViewProps as RNViewProps } from "react-native";
-
-type ViewProps = RNViewProps
+import { View as RNView, ViewProps } from "react-native";
 
 export const View = forwardRef<RNView, ViewProps>(({ children, ...props }, ref) => {
     return <RNView ref={ref} className={`${styles.view} ${props.className}`} {...props}>{children}</RNView>
